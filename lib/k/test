@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+kompile --gen-bison-parser lib/k/metamath.md
+
+mkdir -p tmp/theory
+for f in theory/*.mm; do
+    echo "$f"
+    krun "$f" > "tmp/$f"
+done
