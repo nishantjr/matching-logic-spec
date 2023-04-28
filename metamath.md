@@ -1,4 +1,3 @@
-
 We define the syntax of Metamath as per the syntax
 [manual](https://us.metamath.org/downloads/metamath.pdf), Section 4.1.3.
 
@@ -30,18 +29,18 @@ module METAMATH-SYNTAX-ABSTRACT
     syntax StmtSeq ::= List{Stmt, ""}   [klabel(StmtSeq)]
 
     syntax Stmt ::= "$[" Path "$]"
-    syntax Stmt ::= "${" StmtSeq "$}"
+    syntax Stmt ::= "${" StmtSeq "$}" [format(%1%i%n  %2%n%3%d%n)]
 
-    syntax Stmt ::= "$c" MathSymbolSeq "$."     // Constant statement
-    syntax Stmt ::= "$v" MathSymbolSeq "$."     // Variable statement
+    syntax Stmt ::= "$c" MathSymbolSeq "$."  [format(%1 %2 %3%n)]   // Constant statement
+    syntax Stmt ::= "$v" MathSymbolSeq "$."  [format(%1 %2 %3%n)]   // Variable statement
 
-    syntax Stmt ::= Label "$f" MathSymbol MathSymbol "$."      // Floating Hypothesis
-    syntax Stmt ::= Label "$e" MathSymbol MathSymbolSeq "$."  // Essential Hypothesis
+    syntax Stmt ::= Label "$f" MathSymbol MathSymbol "$."    [format(%1 %2 %3 %4 %5%n)]  // Floating Hypothesis
+    syntax Stmt ::= Label "$e" MathSymbol MathSymbolSeq "$." [format(%1 %2 %3 %4 %5%n)] // Essential Hypothesis
 
-    syntax Stmt ::= "$d" MathSymbolSeq "$."             // Simple+Compound disjointness
+    syntax Stmt ::= "$d" MathSymbolSeq "$." [format(%1 %2 %3%n)]  // Simple+Compound disjointness
 
-    syntax Stmt ::= Label "$a" MathSymbol MathSymbolSeq "$."  // Axiom statement
-    syntax Stmt ::= Label "$p" MathSymbol MathSymbolSeq "$=" LabelSeq "$."  // Proof statement
+    syntax Stmt ::= Label "$a" MathSymbol MathSymbolSeq "$."  [format(%1 %2 %3 %4 %5%n)] // Axiom statement
+    syntax Stmt ::= Label "$p" MathSymbol MathSymbolSeq "$=" LabelSeq "$." [format(%1 %2 %3 %4 %5 %6 %7%n)] // Proof statement
 
     syntax MathSymbolSeq ::= List{MathSymbol, ""} [klabel(MathSymbolSeq)]
     syntax LabelSeq      ::= List{Label, ""}      [klabel(LabelSeq)]
