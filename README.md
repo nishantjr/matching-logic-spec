@@ -23,3 +23,9 @@ Our goal here, is to move in the opposite direction,
 building more complex notions, from matching logic, to eventually meet Kore
 in the middle.
 
+## Structure of this repo
+
+*   [metamath.md](metamath.md): This file defines the syntax of Metamath.
+*   [matching-logic.md](matching-logic.md): Defines the syntax of Matching Logic specifications.
+*   [metamath-wellformedness.md](metamath-wellformedness.md): (WIP) Attempts to build a high level matching logic spec from a metamath one.
+

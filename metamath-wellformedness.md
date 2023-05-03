@@ -1,3 +1,9 @@
+WARNING: This file is an early work in progress.
+
+In this file, we check the well-formedness of metamath axiomatiziation in matching logic.
+The goal here is to check that axioms
+
+
 ```k
 require "metamath.md"
 ```
