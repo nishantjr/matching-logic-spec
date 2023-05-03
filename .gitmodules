@@ -1,0 +1,3 @@
+[submodule "deps/metamath"]
+	path = deps/metamath
+	url = https://github.com/kframework/proof-generation.git
