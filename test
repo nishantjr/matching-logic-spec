@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-kompile --gen-bison-parser metamath.md
+kompile --gen-bison-parser metamath.md --output-definition .build/metamath
 
 mkdir -p .build/metamath-parsed/
 for f in deps/metamath/theory/*.mm; do
     echo "$f"
-    krun "$f" > ".build/metamath-parsed/$(basename $f)"
+    krun "$f" --definition .build/metamath > ".build/metamath-parsed/$(basename $f)"
 done
