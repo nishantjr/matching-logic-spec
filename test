@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+kompile --gen-bison-parser metamath.md
+
+mkdir -p .build/metamath-parsed/
+for f in deps/metamath/theory/*.mm; do
+    echo "$f"
+    krun "$f" > ".build/metamath-parsed/$(basename $f)"
+done
