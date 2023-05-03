@@ -25,7 +25,9 @@ in the middle.
 
 ## Structure of this repo
 
+*   [matching-logic.md](matching-logic.md): Defines a high-level syntax for Matching Logic specifications.
+*   [prelude.matching-logic](prelude.matching-logic): An example specification in the language above.
 *   [metamath.md](metamath.md): This file defines the syntax of Metamath.
-*   [matching-logic.md](matching-logic.md): Defines the syntax of Matching Logic specifications.
 *   [metamath-wellformedness.md](metamath-wellformedness.md): (WIP) Attempts to build a high level matching logic spec from a metamath one.
 
+The [test](test) script provides some rudimentary tests.
