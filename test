@@ -2,10 +2,19 @@
 
 set -euo pipefail
 
-kompile --gen-bison-parser metamath.md --output-definition .build/metamath
+test-parse-metamath() {
+    kompile --gen-bison-parser metamath.md --output-definition .build/metamath
+    mkdir -p .build/metamath-parsed/
+    for f in deps/metamath/theory/*.mm; do
+        echo "Parsing: $f"
+        krun "$f" --definition .build/metamath > ".build/metamath-parsed/$(basename $f)"
+    done
+}
 
-mkdir -p .build/metamath-parsed/
-for f in deps/metamath/theory/*.mm; do
-    echo "$f"
-    krun "$f" --definition .build/metamath > ".build/metamath-parsed/$(basename $f)"
-done
+test-high-level-ml() {
+    kompile --gen-bison-parser matching-logic.md -o .build/matching-logic
+    krun --definition .build/matching-logic ./prelude.matching-logic
+}
+
+test-parse-metamath
+test-high-level-ml
