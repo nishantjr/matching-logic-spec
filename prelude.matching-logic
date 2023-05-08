@@ -7,7 +7,8 @@ theory definedness
     notation (iff ph0 ph1): (and (imp ph0 ph1) (imp ph1 ph0)) .
     notation (forall x ph0): (not (exists x (not ph0))) .
     notation (nu X ph0)
-        when < substitution ph1 is ph0[ (not X) / X ] >
+        when < positive     X   in ph0 >
+             < substitution ph1 is ph0[ (not X) / X ] >
            : (not (mu X (not ph1))) .
 
     symbol definedness .

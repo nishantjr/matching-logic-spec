@@ -11,10 +11,16 @@ test-parse-metamath() {
     done
 }
 
-test-high-level-ml() {
+test-parse-high-level-ml() {
     kompile --gen-bison-parser matching-logic.md -o .build/matching-logic
     krun --definition .build/matching-logic ./prelude.matching-logic
 }
 
+test-prelude-to-metamath() {
+    kompile --gen-bison-parser matching-logic-to-metamath.md -o .build/matching-logic-to-metamath
+    krun --definition .build/matching-logic-to-metamath ./prelude.matching-logic
+}
+
 test-parse-metamath
-test-high-level-ml
+test-parse-high-level-ml
+test-prelude-to-metamath

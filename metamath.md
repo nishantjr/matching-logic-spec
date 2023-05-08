@@ -7,6 +7,21 @@ module METAMATH-TOKENS-ABSTRACT
     syntax Path       [token]
     syntax Label      [token]
     syntax MathSymbol [token]
+
+    // Explicit tokens useful for matching logic.
+    syntax MathSymbol ::= "#Pattern"            [token]
+                        | "#Symbol"             [token]
+                        | "#Variable"           [token]
+                        | "#ElementVariable"    [token]
+                        | "#SetVariable"        [token]
+
+                        | "#Positive"           [token]
+                        | "#Negative"           [token]
+                        | "#Fresh"              [token]
+                        | "#ApplicationContext" [token]
+                        | "#Substitution"       [token]
+                        | "#Notation"           [token]
+                        | "|-"                  [token]
 endmodule
 
 module METAMATH-TOKENS
@@ -53,5 +68,17 @@ endmodule
 
 module METAMATH
     imports METAMATH-SYNTAX-ABSTRACT
+    imports STRING-SYNTAX
+
+    syntax StmtSeq ::= StmtSeq "++StmtSeq" StmtSeq [total, function]
+    rule .StmtSeq ++StmtSeq Stmts2 => Stmts2
+    rule (Stmt Stmts1) ++StmtSeq Stmts2 => Stmt (Stmts1 ++StmtSeq Stmts2)
+
+    syntax MathSymbolSeq ::= MathSymbolSeq "++MathSymbolSeq" MathSymbolSeq [total, function]
+    rule .MathSymbolSeq ++MathSymbolSeq MathSymbols2 => MathSymbols2
+    rule (MathSymbol MathSymbols1) ++MathSymbolSeq MathSymbols2 => MathSymbol (MathSymbols1 ++MathSymbolSeq MathSymbols2)
+
+    syntax Label ::= StringToLabel(String) [function, total, hook(STRING.string2token)]
+    syntax MathSymbol ::= StringToMathSymbol(String) [function, total, hook(STRING.string2token)]
 endmodule
 ```

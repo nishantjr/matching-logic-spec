@@ -5,6 +5,8 @@ module MATCHING-LOGIC-SYNTAX-ABSTRACT
     syntax MetaVarName [token]
     syntax SymbolName [token]
 
+    syntax SymbolName ::= "in" [token]
+
     syntax Theory ::= "theory" TheoryName TheoryDeclList "endtheory"
     syntax TheoryList ::= List{Theory, ""} [klabel(TheoryList)]
 
@@ -23,6 +25,7 @@ module MATCHING-LOGIC-SYNTAX-ABSTRACT
 
     syntax Provable ::= Pattern
                       | "<" "disjoint"     MetaVarNameList "from" MetaVarName ">"
+                      | "<" "positive"     MetaVarName     "in"   MetaVarName ">"
                       | "<" "substitution" MetaVarName     "is"   MetaVarName "[" Pattern "/" MetaVarName "]" ">"
     syntax ProvableList ::= List{Provable, ""} [klabel(ProvableList)]
 
@@ -47,7 +50,19 @@ endmodule
 
 module MATCHING-LOGIC
     imports MATCHING-LOGIC-SYNTAX-ABSTRACT
+    imports STRING-SYNTAX
 
-    configuration <k> $PGM:TheoryList </k>
+    syntax String ::= SymbolNameToString(SymbolName)    [function, total, hook(STRING.token2string)]
+    syntax String ::= MetaVarNameToString(MetaVarName)  [function, total, hook(STRING.token2string)]
+
+    syntax String ::= MetaVarTypeToString(MetaVarType) [total, function]
+    rule MetaVarTypeToString(Pattern) => "Pattern"
+    rule MetaVarTypeToString(EVar) => "Evar"
+    rule MetaVarTypeToString(SVar) => "Svar"
+
+    syntax String ::= MetaVarTypeToLowerString(MetaVarType) [total, function]
+    rule MetaVarTypeToLowerString(Pattern) => "pattern"
+    rule MetaVarTypeToLowerString(EVar) => "element-variable"
+    rule MetaVarTypeToLowerString(SVar) => "set-variable"
 endmodule
 ```
