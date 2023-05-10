@@ -15,6 +15,7 @@ to the Metamath formalization without forcing each of immediately change their
 representation. This will let us take a more agile approach and not have each of
 the formalizations tighly bound to the Metamath formalization.
 
+
 ## Goals
 
 1.  Only allow the axiomatization of well-formed ML theories.
@@ -35,6 +36,7 @@ Our goal here, is to move in the opposite direction,
 building more complex notions, from matching logic, to eventually meet Kore
 in the middle.
 
+
 ## Structure of this repo
 
 *   [matching-logic.md](matching-logic.md): Defines a high-level syntax for Matching Logic specifications.
@@ -43,3 +45,4 @@ in the middle.
 *   [metamath-wellformedness.md](metamath-wellformedness.md): (WIP) Attempts to build a high level matching logic spec from a metamath one.
 
 The [test](test) script provides some rudimentary tests.
+
