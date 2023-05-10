@@ -68,7 +68,7 @@ endmodule
 
 module METAMATH
     imports METAMATH-SYNTAX-ABSTRACT
-    imports STRING-SYNTAX
+    imports STRING
 
     syntax StmtSeq ::= StmtSeq "++StmtSeq" StmtSeq [total, function]
     rule .StmtSeq ++StmtSeq Stmts2 => Stmts2
@@ -80,5 +80,10 @@ module METAMATH
 
     syntax Label ::= StringToLabel(String) [function, total, hook(STRING.string2token)]
     syntax MathSymbol ::= StringToMathSymbol(String) [function, total, hook(STRING.string2token)]
+
+    syntax String ::= LabelToString(Label)    [function, total, hook(STRING.token2string)]
+
+    syntax Label ::= appendLabel(Label, String) [total, function]
+    rule appendLabel(Label, Suffix) => StringToLabel(LabelToString(Label) +String Suffix)
 endmodule
 ```
