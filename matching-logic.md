@@ -17,7 +17,7 @@ module MATCHING-LOGIC-SYNTAX-ABSTRACT
     syntax TheoryDecl ::= "metavar" MetaVarNameList ":" MetaVarType "."
     syntax MetaVarType ::= "Pattern" | "EVar" | "SVar"
 
-    syntax TheoryDecl ::= "notation" Pattern ":" Pattern "."
+    syntax TheoryDecl ::= "notation" Pattern                     ":" Pattern "."
                         | "notation" Pattern "when" ProvableList ":" Pattern "."
 
     syntax TheoryDecl ::= "symbol" SymbolName "."
