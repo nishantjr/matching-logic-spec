@@ -15,6 +15,18 @@ to the Metamath formalization without forcing each of immediately change their
 representation. This will let us take a more agile approach and not have each of
 the formalizations tighly bound to the Metamath formalization.
 
+## Goals
+
+1.  Only allow the axiomatization of well-formed ML theories.
+2.  Abstractly capture constructs for MSML, Kore, and eventually K, in a way
+    that allows us to translate them to analogous concepts in each
+    formalization.
+    -   Make us agile: Allow changing the representation of a particular
+        abstract concept without forcing rewrite many metamath translations
+        simulatuously.
+3.  Act as a medium of exchange between the formalizations.
+
+
 ## How is this different from `kore` and `kompile`?
 
 `kore` and `kompile` bring K closer to Matching Logic,
