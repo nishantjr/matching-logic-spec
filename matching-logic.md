@@ -21,7 +21,7 @@ module MATCHING-LOGIC-SYNTAX-ABSTRACT
                         | "notation" Pattern "when" ProvableList ":" Pattern "."
 
     syntax TheoryDecl ::= "symbol" SymbolName "."
-    syntax TheoryDecl ::= "axiom" TheoremName ":" ProvableList "."
+    syntax TheoryDecl ::= "axiom" TheoremName ":" Pattern "."
 
     syntax Provable ::= Pattern
                       | "<" "disjoint"     MetaVarNameList "from" MetaVarName ">"
