@@ -74,7 +74,7 @@ module METAMATH
     rule .StmtSeq ++StmtSeq Stmts2 => Stmts2
     rule (Stmt Stmts1) ++StmtSeq Stmts2 => Stmt (Stmts1 ++StmtSeq Stmts2)
 
-    syntax MathSymbolSeq ::= MathSymbolSeq "++MathSymbolSeq" MathSymbolSeq [total, function]
+    syntax MathSymbolSeq ::= MathSymbolSeq "++MathSymbolSeq" MathSymbolSeq [total, function, left, avoid]
     rule .MathSymbolSeq ++MathSymbolSeq MathSymbols2 => MathSymbols2
     rule (MathSymbol MathSymbols1) ++MathSymbolSeq MathSymbols2 => MathSymbol (MathSymbols1 ++MathSymbolSeq MathSymbols2)
 
