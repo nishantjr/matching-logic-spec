@@ -48,7 +48,7 @@ Meta-variables are translated to floating hypothesis.
 ## Notation
 
 ```k
-    rule <matching-logic> notation Notation : Unfolding . => .K ... </matching-logic>
+    rule <matching-logic> notation Notation := Unfolding . => .K ... </matching-logic>
          <metamath>  Metamath => Metamath ++StmtSeq
                      $c SymbolNameToMathSymbol(getNotationName(Notation)) $.
                      notationSyntaxAssertionName(Notation)  $a #Pattern  PatternToMathSymbolSeq(Notation) $.
@@ -58,7 +58,7 @@ Meta-variables are translated to floating hypothesis.
 ```
 
 ```k
-    rule <matching-logic> notation Notation when Hypotheseses : Unfolding . => .K ... </matching-logic>
+    rule <matching-logic> notation Notation when Hypotheseses := Unfolding . => .K ... </matching-logic>
          <metamath>  Metamath => Metamath ++StmtSeq
                      $c SymbolNameToMathSymbol(getNotationName(Notation)) $.
                      notationSyntaxAssertionName(Notation)  $a #Pattern  PatternToMathSymbolSeq(Notation) $.

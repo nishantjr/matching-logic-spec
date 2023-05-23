@@ -3,22 +3,22 @@ spec definedness
     metavar x : EVar .
     metavar X : SVar .
 
-    notation top : ( not bot ) .
-    notation (iff ph0 ph1): (and (imp ph0 ph1) (imp ph1 ph0)) .
-    notation (forall x ph0): (not (exists x (not ph0))) .
+    notation top := ( not bot ) .
+    notation (iff ph0 ph1) := (and (imp ph0 ph1) (imp ph1 ph0)) .
+    notation (forall x ph0) := (not (exists x (not ph0))) .
     notation (nu X ph0)
         when < positive     X   in ph0 >
              < substitution ph1 is ph0[ (not X) / X ] >
-           : (not (mu X (not ph1))) .
+          := (not (mu X (not ph1))) .
 
     symbol definedness .
-    notation (ceil ph0): (app definedness ph0) .
+    notation (ceil ph0) := (app definedness ph0) .
     axiom definedness: (ceil x) .
 
-    notation (floor ph0): (not (ceil (not ph0))) .
-    notation (in x ph0): (ceil (and x ph0)) .
-    notation (included ph0 ph1): (floor (imp ph0 ph1)) .
-    notation (eq ph0 ph1): (floor (iff ph0 ph1)) .
+    notation (floor ph0) := (not (ceil (not ph0))) .
+    notation (in x ph0) := (ceil (and x ph0)) .
+    notation (included ph0 ph1) := (floor (imp ph0 ph1)) .
+    notation (eq ph0 ph1) := (floor (iff ph0 ph1)) .
 endspec
 
 spec sorts
@@ -28,21 +28,21 @@ spec sorts
     // TODO: Sort isn't declared as a sort. I'm not sure if that was intentional?
 
     symbol inhabitant .
-    notation (inh ph0) : (app inhabitant ph0) .
-    notation (in-sort ph0 ph1) : (included ph0 (inh ph1)) .
+    notation (inh ph0) := (app inhabitant ph0) .
+    notation (in-sort ph0 ph1) := (included ph0 (inh ph1)) .
 
     axiom inh-sort-nonempty : (exists x (in-sort x sort)) .
 
     notation (sorted-forall x ph0 ph1)
-           : (forall x (imp (in-sort x ph0) ph1)) .
+          := (forall x (imp (in-sort x ph0) ph1)) .
     notation (sorted-exists x ph0 ph1)
-           : (exists x (and (in-sort x ph0) ph1)) .
+          := (exists x (and (in-sort x ph0) ph1)) .
 
     metavar s0 s1 s2 s3 : EVar .
     notation (forall-sort s0 ph0)
-           : (sorted-forall s0 sort ph0 ) .
+          := (sorted-forall s0 sort ph0 ) .
     notation (exists-sort s0 ph0)
-           : (sorted-exists s0 sort ph0 ) .
+          := (sorted-exists s0 sort ph0 ) .
 endspec
 
 spec special-patterns
@@ -53,11 +53,11 @@ spec special-patterns
     // This means that if there is an error wrt disjointness, you will be able to prove *fewer* things.
     notation (is-singleton ph0)
         when < disjoint x from ph0 >
-           : (exists x (eq x ph0)) .
+          := (exists x (eq x ph0)) .
 
-    notation (is-top ph0)       : (eq ph0 top) .
-    notation (is-bot ph0)       : (eq ph0 bot) .
-    notation (is-predicate ph0) : (or (is-top ph0) (is-bot ph0)) .
+    notation (is-top ph0)       := (eq ph0 top) .
+    notation (is-bot ph0)       := (eq ph0 bot) .
+    notation (is-predicate ph0) := (or (is-top ph0) (is-bot ph0)) .
 endspec
 
 spec sorted-functions
@@ -66,18 +66,18 @@ spec sorted-functions
     notation (is-constant ph0 ph1)
         when < disjoint x from ph0 >
              < disjoint x from ph1 >
-           : (sorted-exists x ph1 (eq ph0 x)) .
+          := (sorted-exists x ph1 (eq ph0 x)) .
     notation (is-unary-function ph0 ph1 ph2)
         when < disjoint x y from ph0 >
              < disjoint x y from ph1 >
              < disjoint x y from ph2 >
-           : (sorted-forall x ph1 (sorted-exists y ph2 (eq (app ph0 x) y))) .
+          := (sorted-forall x ph1 (sorted-exists y ph2 (eq (app ph0 x) y))) .
     notation (is-binary-function ph0 ph1 ph2 ph3)
         when < disjoint x y z from ph0 >
              < disjoint x y z from ph1 >
              < disjoint x y z from ph2 >
              < disjoint x y z from ph3 >
-           : (sorted-forall x ph1 (sorted-exists y ph2 (eq (app ph0 x) y))) .
+          := (sorted-forall x ph1 (sorted-exists y ph2 (eq (app ph0 x) y))) .
 endspec
 
 spec unit
@@ -95,24 +95,22 @@ spec pair
 
     symbol pair-sort-symbol .
     axiom pair-sort-is-sort: (is-binary-function pair-sort-symbol sort sort sort) .
-    notation (pair-sort ph0 ph1): (app (app pair-sort-symbol ph0) ph1) .
+    notation (pair-sort ph0 ph1) := (app (app pair-sort-symbol ph0) ph1) .
 
     symbol pair-symbol .
     axiom pair-symbol-is-binary-function:
       (forall-sort s0 (forall-sort s1 (is-binary-function pair-symbol s0 s1 (pair-sort s0 s1)))) .
-    notation (pair ph0 ph1) : (app (app pair-symbol ph0) ph1) .
+    notation (pair ph0 ph1) := (app (app pair-symbol ph0) ph1) .
 
     symbol pair-fst .
     axiom pair-fst-symbol-is-unary-function:
         (forall-sort s0 (forall-sort s1 (is-unary-function pair-fst-symbol (pair-sort s0 s1) s0))) .
-    notation pair-fst:
-        (app pair-fst-symbol ph0 ) .
+    notation pair-fst := (app pair-fst-symbol ph0 ) .
 
     symbol pair-snd .
     axiom pair-snd-symbol-is-unary-function:
         (forall-sort s0 (forall-sort s1 (is-unary-function pair-snd-symbol (pair-sort s0 s1) s0))) .
-    notation pair-snd:
-        (app pair-snd-symbol ph0 ) .
+    notation pair-snd := (app pair-snd-symbol ph0 ) .
 
     axiom pair-fst : (forall-sort s0 (forall-sort s1
                        (sorted-forall x0 s0 (sorted-forall x1 s2

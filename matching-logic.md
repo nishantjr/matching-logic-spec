@@ -17,8 +17,8 @@ module MATCHING-LOGIC-SYNTAX-ABSTRACT
     syntax SpecDecl ::= "metavar" MetaVarNameList ":" MetaVarType "."
     syntax MetaVarType ::= "Pattern" | "EVar" | "SVar"
 
-    syntax SpecDecl ::= "notation" Pattern                     ":" Pattern "."
-                        | "notation" Pattern "when" ProvableList ":" Pattern "."
+    syntax SpecDecl ::= "notation" Pattern                     ":=" Pattern "."
+                      | "notation" Pattern "when" ProvableList ":=" Pattern "."
 
     syntax SpecDecl ::= "symbol" SymbolName "."
     syntax SpecDecl ::= "axiom" TheoremName ":" Pattern "."
