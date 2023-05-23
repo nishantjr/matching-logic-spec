@@ -12,20 +12,20 @@ module MATCHING-LOGIC-TO-METAMATH
     imports STRING
     imports INT
 
-    configuration <matching-logic> $PGM:TheoryList ~> . </matching-logic>
+    configuration <matching-logic> $PGM:SpecList ~> . </matching-logic>
                   <metamath> .StmtSeq </metamath>
 
-    rule <matching-logic> (Theory Theories):TheoryList => Theory ~> Theories ... </matching-logic>
-    rule <matching-logic> theory _TheoryName Decls endtheory => Decls ... </matching-logic>
+    rule <matching-logic> (Spec Specs):SpecList => Spec ~> Specs ... </matching-logic>
+    rule <matching-logic> spec _SpecName Decls endspec => Decls ... </matching-logic>
 
-    rule <matching-logic> Decl Decls:TheoryDeclList => Decl ~> Decls ... </matching-logic>
+    rule <matching-logic> Decl Decls:SpecDeclList => Decl ~> Decls ... </matching-logic>
 ```
 
 We ignore these for now.
-Later, we may want to only export a single theory and its transitively imported modules.
+Later, we may want to only export a single spec and its transitively imported modules.
 
 ```k
-    rule <matching-logic> imports _TheoryName . => .K  ... </matching-logic>
+    rule <matching-logic> imports _SpecName . => .K  ... </matching-logic>
 ```
 
 ## Meta Variables

@@ -1,27 +1,27 @@
 ```k
 module MATCHING-LOGIC-SYNTAX-ABSTRACT
-    syntax TheoryName [token]
+    syntax SpecName [token]
     syntax TheoremName [token]
     syntax MetaVarName [token]
     syntax SymbolName [token]
 
     syntax SymbolName ::= "in" [token]
 
-    syntax Theory ::= "theory" TheoryName TheoryDeclList "endtheory"
-    syntax TheoryList ::= List{Theory, ""} [klabel(TheoryList)]
+    syntax Spec ::= "spec" SpecName SpecDeclList "endspec"
+    syntax SpecList ::= List{Spec, ""} [klabel(SpecList)]
 
-    syntax TheoryDecl ::= "imports" TheoryName "."
+    syntax SpecDecl ::= "imports" SpecName "."
 
-    syntax TheoryDeclList ::= List{TheoryDecl, ""} [klabel(TheoryDeclList)]
+    syntax SpecDeclList ::= List{SpecDecl, ""} [klabel(SpecDeclList)]
 
-    syntax TheoryDecl ::= "metavar" MetaVarNameList ":" MetaVarType "."
+    syntax SpecDecl ::= "metavar" MetaVarNameList ":" MetaVarType "."
     syntax MetaVarType ::= "Pattern" | "EVar" | "SVar"
 
-    syntax TheoryDecl ::= "notation" Pattern                     ":" Pattern "."
+    syntax SpecDecl ::= "notation" Pattern                     ":" Pattern "."
                         | "notation" Pattern "when" ProvableList ":" Pattern "."
 
-    syntax TheoryDecl ::= "symbol" SymbolName "."
-    syntax TheoryDecl ::= "axiom" TheoremName ":" Pattern "."
+    syntax SpecDecl ::= "symbol" SymbolName "."
+    syntax SpecDecl ::= "axiom" TheoremName ":" Pattern "."
 
     syntax Provable ::= Pattern
                       | "<" "disjoint"     MetaVarNameList "from" MetaVarName ">"
@@ -42,7 +42,7 @@ module MATCHING-LOGIC-SYNTAX
                   | #LowerId [token]
                   | #UpperId [token]
 
-    syntax TheoryName  ::= Name [token]
+    syntax SpecName  ::= Name [token]
     syntax TheoremName ::= Name [token]
     syntax MetaVarName ::= Name [token]
     syntax SymbolName  ::= Name [token]

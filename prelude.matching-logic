@@ -1,4 +1,4 @@
-theory definedness
+spec definedness
     metavar ph0 ph1 : Pattern .
     metavar x : EVar .
     metavar X : SVar .
@@ -19,9 +19,9 @@ theory definedness
     notation (in x ph0): (ceil (and x ph0)) .
     notation (included ph0 ph1): (floor (imp ph0 ph1)) .
     notation (eq ph0 ph1): (floor (iff ph0 ph1)) .
-endtheory
+endspec
 
-theory sorts
+spec sorts
     imports definedness .
 
     symbol sort .
@@ -43,9 +43,9 @@ theory sorts
            : (sorted-forall s0 sort ph0 ) .
     notation (exists-sort s0 ph0)
            : (sorted-exists s0 sort ph0 ) .
-endtheory
+endspec
 
-theory special-patterns
+spec special-patterns
     imports definedness .
 
     // TODO: I'd prefer to default to requiring disjointness/freshness for notation/axioms,
@@ -58,9 +58,9 @@ theory special-patterns
     notation (is-top ph0)       : (eq ph0 top) .
     notation (is-bot ph0)       : (eq ph0 bot) .
     notation (is-predicate ph0) : (or (is-top ph0) (is-bot ph0)) .
-endtheory
+endspec
 
-theory sorted-functions
+spec sorted-functions
     // TODO: Consider meta-notation for declaring functions.
     imports sorts .
     notation (is-constant ph0 ph1)
@@ -78,9 +78,9 @@ theory sorted-functions
              < disjoint x y z from ph2 >
              < disjoint x y z from ph3 >
            : (sorted-forall x ph1 (sorted-exists y ph2 (eq (app ph0 x) y))) .
-endtheory
+endspec
 
-theory unit
+spec unit
     imports sorted-functions .
     symbol unit-sort .
     axiom unit-sort-is-sort : (exists-sort x (eq x unit-sort)) .
@@ -88,9 +88,9 @@ theory unit
     symbol unit .
     axiom unit-is-singleton: (is-singleton unit) .
     axiom unit-sort : (eq unit (inh unit-sort)) .
-endtheory
+endspec
 
-theory pair
+spec pair
     imports sorted-functions .
 
     symbol pair-sort-symbol .
@@ -125,4 +125,4 @@ theory pair
                         (sorted-forall x2 s0 (sorted-forall x3 s2
                              (imp (eq (pair x0 x1) (pair x2 x3))
                                 (and (eq x0 x2) (eq x1 x3))))))))) .
-endtheory
+endspec
