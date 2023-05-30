@@ -1,25 +1,86 @@
+--- Specification modules
+-------------------------
+
+--- `spec` modules allow defining signatures and theories.
+
 spec definedness
+
+--- The `metavar` declaration allows defining variables used in axioms and notation.
     metavar ph0 ph1 : Pattern .
     metavar x : EVar .
     metavar X : SVar .
 
+--- `notation` allows us to define sugars.
+--- We will need several well-formedness checks here.
+---
+--- 1.  Each notation has a unique definition
+--- 2.  LHS is either an atom, or an s-expression of the form `(atom metavar*)`
+--- 3.  All metavariables in the RHS are either present on the LHS
+---     or they are bound variables disjoint from other metavariables
+
     notation top := ( not bot ) .
     notation (iff ph0 ph1) := (and (imp ph0 ph1) (imp ph1 ph0)) .
     notation (forall x ph0) := (not (exists x (not ph0))) .
+
+--- `notation` may also have "when" clauses, allowing us to specify side conditions.
+--- The consensus right now is that we want to allow side conditions that
+--- are meta-conditions, such as positivity, freshness, etc.
+--- We need to consider whether we want to allow side conditions that are
+--- general patterns, such as that a pattern is a predicate, or functional.
     notation (nu X ph0)
         when < positive     X   in ph0 >
              < substitution ph1 is ph0[ (not X) / X ] >
           := (not (mu X (not ph1))) .
 
+--- `symbol` allows us to specify a signature.
+--- We do not currently allow specifying arity and sorts associated with a
+--- symbol, but its something we'll want to consider.
     symbol definedness .
     notation (ceil ph0) := (app definedness ph0) .
     axiom definedness: (ceil x) .
+
+    notation (foo ph0) := (bar ph0 ) .
+    notation (foo ph0) := (buzz ph0 ) .
+    notation (kleene ph0) := (mu X (or epsilon (concat X ph0))) .
 
     notation (floor ph0) := (not (ceil (not ph0))) .
     notation (in x ph0) := (ceil (and x ph0)) .
     notation (included ph0 ph1) := (floor (imp ph0 ph1)) .
     notation (eq ph0 ph1) := (floor (iff ph0 ph1)) .
 endspec
+
+--- `prop` modules may import specifications, but cannot declare new axioms or
+--- extend the signature.
+props definedness-lemmas
+    import definedness
+    theorem foo : (imp buzz bar) .
+    theorem bar : (imp buzz bar) .
+    theorem buzz : (imp buzz bar) .
+    theorem buz
+       when (imp buz bar)
+          : (imp buz buz)
+endprops
+
+--- `prop` modules may import specifications, but cannot declare new axioms or
+--- extend the signature.
+props definedness-lemmas
+    import definedness
+--- theorem <name> : <pattern>   := <proof-source>  $ <proof-hint> $
+
+--- Use the translation of a proof done using the Coq formalization.
+    theorem foo : (imp buzz bar) := coq $ my-foo $ .
+
+--- Use the translation of a proof done using the Lean formalization.
+    theorem bar : (imp buzz bar) := lean $ bar $ .
+
+--- Use a propositional logic decision procedure for proving the following:
+    theorem buz
+       when (imp buz bar)
+            -------------
+          : (imp buz buz)
+         := lookup $ buzz $ .
+    theorem blu : (imp phi phi)  := propositional $ $ .
+endprops
 
 spec sorts
     imports definedness .
