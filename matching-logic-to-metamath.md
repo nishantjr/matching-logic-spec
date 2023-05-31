@@ -15,9 +15,11 @@ module MATCHING-LOGIC-TO-METAMATH
     configuration <matching-logic> $PGM:SpecList ~> . </matching-logic>
                   <metamath> .StmtSeq </metamath>
 
+    rule <matching-logic> .SpecList => .K ... </matching-logic>
     rule <matching-logic> (Spec Specs):SpecList => Spec ~> Specs ... </matching-logic>
     rule <matching-logic> spec _SpecName Decls endspec => Decls ... </matching-logic>
 
+    rule <matching-logic> .SpecDeclList => .K ... </matching-logic>
     rule <matching-logic> Decl Decls:SpecDeclList => Decl ~> Decls ... </matching-logic>
 ```
 
