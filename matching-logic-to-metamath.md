@@ -45,6 +45,18 @@ Meta-variables are translated to floating hypothesis.
          </metamath>
 ```
 
+## Symbols
+
+```k
+    rule <matching-logic> symbol SymbolName . => .K ... </matching-logic>
+         <metamath>  Metamath => Metamath ++StmtSeq
+                     $c SymbolNameToMathSymbol(SymbolName) $.
+                     symbolSyntaxAssertionName(SymbolName) $a #Symbol SymbolNameToMathSymbol(SymbolName) $.
+                     .StmtSeq
+         </metamath>
+```
+
+
 ## Notation
 
 ```k
@@ -69,6 +81,21 @@ Meta-variables are translated to floating hypothesis.
                      .StmtSeq
          </metamath>
 ```
+
+
+## Axioms
+
+```k
+    rule <matching-logic> axiom AxiomName : Axiom . => .K ... </matching-logic>
+         <metamath>  Metamath => Metamath ++StmtSeq
+                     TheoremNameToLabel(AxiomName) $a #Pattern  PatternToMathSymbolSeq(Axiom) $.
+                     .StmtSeq
+         </metamath>
+```
+
+
+## Helper functions
+
 
 ```k
     syntax Stmt ::= ProvableToHypothesis(Label, Provable) [function, total]
@@ -104,6 +131,10 @@ Meta-variables are translated to floating hypothesis.
     rule notationDesugarAssertionName(Notation)
       => StringToLabel(SymbolNameToString(getNotationName(Notation)) +String "-is-sugar")
 
+    syntax Label ::= symbolSyntaxAssertionName(SymbolName) [total, function]
+    rule symbolSyntaxAssertionName(SymbolName)
+      => StringToLabel(SymbolNameToString(SymbolName) +String "-is-symbol")
+
     syntax MathSymbolSeq ::= PatternToMathSymbolSeq(Pattern) [function, total]
     rule PatternToMathSymbolSeq(SymbolName) => SymbolNameToMathSymbol(SymbolName)
     rule PatternToMathSymbolSeq(( Ps:PatternList ):Pattern)
@@ -124,6 +155,9 @@ Meta-variables are translated to floating hypothesis.
     rule MetaVarTypeToMathSymbol(Pattern) => #Pattern
     rule MetaVarTypeToMathSymbol(EVar) => #ElementVariable
     rule MetaVarTypeToMathSymbol(SVar) => #SetVariable
+
+    syntax Label ::= TheoremNameToLabel(TheoremName) [total, function]
+    rule TheoremNameToLabel(TheoremName) => StringToLabel(TheoremNameToString(TheoremName))
 ```
 
 ```k

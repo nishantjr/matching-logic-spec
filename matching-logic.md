@@ -54,6 +54,7 @@ module MATCHING-LOGIC
 
     syntax String ::= SymbolNameToString(SymbolName)    [function, total, hook(STRING.token2string)]
     syntax String ::= MetaVarNameToString(MetaVarName)  [function, total, hook(STRING.token2string)]
+    syntax String ::= TheoremNameToString(TheoremName)  [function, total, hook(STRING.token2string)]
 
     syntax String ::= MetaVarTypeToString(MetaVarType) [total, function]
     rule MetaVarTypeToString(Pattern) => "Pattern"
