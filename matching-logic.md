@@ -48,6 +48,19 @@ module MATCHING-LOGIC-SYNTAX
     syntax SymbolName  ::= Name [token]
 endmodule
 
+module MATCHING-LOGIC-FROM-SET-MM
+    import MATCHING-LOGIC-SYNTAX
+
+    syntax SymbolName ::= "\\imp" [token]
+    syntax SymbolName ::= "\\not" [token]
+
+    syntax Pattern ::= "-." Pattern [macro]
+                     > Pattern "->" Pattern [macro]
+
+    rule Phi -> Psi => ( \imp Phi Psi ):Pattern
+    rule -. Phi => ( \not Phi ):Pattern
+endmodule
+
 module MATCHING-LOGIC
     imports MATCHING-LOGIC-SYNTAX-ABSTRACT
     imports STRING-SYNTAX
